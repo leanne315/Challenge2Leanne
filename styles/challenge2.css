@@ -1,0 +1,14 @@
+/*body{
+  background-color: #030F33;
+}*/
+
+#txt{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  font-family: 'Anton', sans-serif;
+  font-size: 200px;
+  /*text-shadow: 5px 5px 7px #44BBFF;*/
+  color: black;
+}

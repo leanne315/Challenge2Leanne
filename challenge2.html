@@ -1,0 +1,56 @@
+<!DOCTYPE>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Challenge 2</title>
+    <link rel="stylesheet" href="styles/challenge2.css">
+    <link href="https://fonts.googleapis.com/css?family=Anton" rel="stylesheet">
+    <!--CDN link for  TweenMax-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/1.20.3/TweenMax.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/1.20.3/plugins/CSSPlugin.min.js"></script>
+    <script>
+
+    var colors = {top:"pink", bottom:"#030F33"};
+
+    //tweens myObject.borderColor and myObject.myCustomProp
+TweenLite.to(myObject, 1, {colorProps:{borderColor:"red", myCustomProp:"rgb(204,51,0)"}, ease:Linear.easeNone});
+
+    function colorize(element) {
+      //apply the colors to the element
+      if(isChrome){
+        // used to be this
+        TweenLite.set(element, {
+          backgroundImage:"-webkit-linear-gradient(top," + colors.top + ", " + colors.bottom + ")"
+        });
+        //TweenLite.set(element, {background:"-webkit-linear-gradient(top," + colors.top + ", " + colors.bottom + ")"});
+      } else {
+        TweenLite.set(element, {
+          background:"linear-gradient(to top," + colors.top + ", " + colors.bottom + ")"
+        });
+      }
+      //console.log(colors.right);
+    }
+
+      function startTime(){
+        var today = new Date();
+        var h = today.getHours();
+        var m = today.getMinutes();
+        var s = today.getSeconds();
+        m = checkTime(m);
+        s = checkTime(s);
+
+        document.getElementById('txt').innerHTML = h + ":" + m + ":" + s;
+        var t = setTimeout(startTime, 500);
+      }
+
+      function checkTime(i){
+        if (i < 10) {i = "0" + i};
+        return i;
+      }
+    </script>
+  </head>
+  <body onload="startTime()">
+    <div id="txt"></div>
+  </body>
+</html>
