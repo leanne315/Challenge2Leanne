@@ -16,14 +16,12 @@
 .grid div {
   color: white;
   font-size: 20px;
-  padding: 20px;
   }
 
 /* styling per item*/
 .item-1 {
-  background: #EBFAFF;
+  background: #87CEFA;
   grid-area: sun;
-  font-family: 'Anton', sans-serif;
 }
 
 canvas{

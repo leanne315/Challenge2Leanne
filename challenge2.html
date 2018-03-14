@@ -3,9 +3,10 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>GRID</title>
+    <title>Challenge2</title>
     <link rel="stylesheet" href="styles/challenge2.css">
-    <link href="https://fonts.googleapis.com/css?family=Anton" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/1.20.2/TweenMax.min.js"></script>
   </head>
   <body>
     <section class="grid">
@@ -31,7 +32,8 @@
   			var c = document.getElementById("myCanvas");
   			var ctx = c.getContext("2d");
   			ctx.drawImage(sun, point.x, point.y);
-  			ctx.font = "100px Arial";
+
+  			// TweenMax.to(point, 2, {x:canvas.width/2-sun.width/2, y:0, repeat:8, yoyo:true, onUpdate:animate});
 
   			function currentPositionOneMinuteMillis() {
   				var d = new Date(); // for now
@@ -39,45 +41,54 @@
   				//d.getMinutes();
   				var s = d.getSeconds();
   				var ms = d.getMilliseconds();
-  				var t = s*1000 + ms;
-  				var duration = 30000; // seconden: Zon volledig op duurt 30.000 ms seconden, zon volledig onder duurt 30 seconden.
+  				var t = s * 1000 + ms;
+  				var duration = 30000;
 
   				if (t <=duration) {
   					point.y = canvas.height-sun.height - (t/duration * canvas.height-sun.height);
   				} else {
   					point.y = sun.height + ((t-duration)/duration * canvas.height-sun.height);
   				}
-
-  				/*
-  				Seconden	Positie
-  				0			canvas.height-sun.height	   	= 450
-  				15			canvas.height-sun.height *15/30	= 225
-  				30			0								= 0
-
-  				45			canvas.height-sun.height *15/30	= 225
-  				*/
   			}
 
+  			function makeClock(uren, minuten, seconden) {
+  				if (uren <10) uren = "0" + uren;
+  				if (minuten <10) minuten = "0" + minuten;
+  				if (seconden <10) seconden = "0" + seconden;
 
+  				return uren + ":" + minuten + ":" + seconden;
+  			}
 
   			 setInterval(
   				function animate() {
   					var d = new Date();
+
   					ctx.clearRect(0, 0, window.innerWidth, window.innerHeight);
   					//currentPositionOneMinuteMillis();
   					// currentPositionOneMinute();
   					// currentPositionOneHour();
   					currentPositionOneMinuteMillis();
   					ctx.drawImage(sun, point.x, point.y);
-  					ctx.fillText(d.getHours() + ":" + d.getMinutes() + ":" + d.getSeconds(), window.innerWidth/2-200, 250);
-  					//ctx.fillText(d.getMilliseconds(), 0, 100);
+
+  					// Grass
+  					ctx.fillStyle = "#90C070";
+  					ctx.fillRect(0, window.innerHeight - window.innerHeight/5, window.innerWidth, window.innerHeight);
+
+  					// Darkness
+  					ctx.fillStyle = "#030F33";
+  					var opacity = point.y/window.innerHeight - 0.1;
+  					ctx.fillStyle = 'rgba(3, 15, 51, ' + opacity + ')';
+  					ctx.fillRect(0, 0, window.innerWidth, window.innerHeight);
+
+  					// Clock
+  					ctx.font = '120pt Montserrat';
+  					ctx.strokeText(makeClock(d.getHours(), d.getMinutes(), d.getSeconds()), window.innerWidth/2-280, 250);
+  					ctx.fillStyle = "#FFFFFF";
+  					ctx.fillText(makeClock(d.getHours(), d.getMinutes(), d.getSeconds()), window.innerWidth/2-280, 250);
   				}
   				, 10
   			);
-
-
   		}
   	</script>
-
   </body>
 </html>
