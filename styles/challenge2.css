@@ -9,7 +9,8 @@
   grid-template-rows: 1fr;
   grid-gap: 20px;
 
-  grid-template-areas: "sun";
+  grid-template-areas: "text"
+                       "sun";
 }
 
 /* styling van grid section */
@@ -20,6 +21,10 @@
 
 /* styling per item*/
 .item-1 {
+  background: pink;
+  grid-area: text;
+}
+.item-2 {
   background: #87CEFA;
   grid-area: sun;
 }
