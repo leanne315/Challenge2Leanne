@@ -1,56 +1,92 @@
-<!DOCTYPE>
+<!DOCTYPE html>
 <html>
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Challenge 2</title>
-    <link rel="stylesheet" href="styles/challenge2.css">
+    <title>GRID</title>
+    <link rel="stylesheet" href="styles/test4-grid.css">
     <link href="https://fonts.googleapis.com/css?family=Anton" rel="stylesheet">
-    <!--CDN link for  TweenMax-->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/1.20.3/TweenMax.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/1.20.3/plugins/CSSPlugin.min.js"></script>
-    <script>
-
-    var colors = {top:"pink", bottom:"#030F33"};
-
-    //tweens myObject.borderColor and myObject.myCustomProp
-TweenLite.to(myObject, 1, {colorProps:{borderColor:"red", myCustomProp:"rgb(204,51,0)"}, ease:Linear.easeNone});
-
-    function colorize(element) {
-      //apply the colors to the element
-      if(isChrome){
-        // used to be this
-        TweenLite.set(element, {
-          backgroundImage:"-webkit-linear-gradient(top," + colors.top + ", " + colors.bottom + ")"
-        });
-        //TweenLite.set(element, {background:"-webkit-linear-gradient(top," + colors.top + ", " + colors.bottom + ")"});
-      } else {
-        TweenLite.set(element, {
-          background:"linear-gradient(to top," + colors.top + ", " + colors.bottom + ")"
-        });
-      }
-      //console.log(colors.right);
-    }
-
-      function startTime(){
-        var today = new Date();
-        var h = today.getHours();
-        var m = today.getMinutes();
-        var s = today.getSeconds();
-        m = checkTime(m);
-        s = checkTime(s);
-
-        document.getElementById('txt').innerHTML = h + ":" + m + ":" + s;
-        var t = setTimeout(startTime, 500);
-      }
-
-      function checkTime(i){
-        if (i < 10) {i = "0" + i};
-        return i;
-      }
-    </script>
   </head>
-  <body onload="startTime()">
-    <div id="txt"></div>
+  <body>
+    <section class="grid">
+      <div class="item-1">
+        <canvas id="myCanvas"></canvas>
+      </div>
+    </section>
+
+    <script>
+      window.onload = function() {
+  			var canvas = document.getElementById('myCanvas');
+  			canvas.width = window.innerWidth;
+              canvas.height = window.innerHeight;
+
+  			var sun = new Image();
+  			sun.src="styles/sun300.png";
+
+  			var point = {x:canvas.width/2-sun.width/2, y:canvas.height};
+
+  			var d = new Date(); // for now
+  			var s = d.getSeconds();
+
+  			var c = document.getElementById("myCanvas");
+  			var ctx = c.getContext("2d");
+  			ctx.drawImage(sun, point.x, point.y);
+  			ctx.font = "80px Arial white";
+
+  			// TweenMax.to(point, 2, {x:canvas.width/2-sun.width/2, y:0, repeat:8, yoyo:true, onUpdate:animate});
+
+  			function currentPosition() {
+  				var d = new Date(); // for now
+  				//d.getHours();
+  				//d.getMinutes();
+  				var s = d.getSeconds();
+
+  				var duration = 30; // seconden
+
+  				if (s <=duration) {
+  					point.y = canvas.height-sun.height - (s/duration * canvas.height-sun.height);
+  				} else {
+  					point.y = sun.height + ((s-duration)/duration * canvas.height-sun.height);
+  				}
+
+  				/*
+
+  				Seconden	Positie
+  				0			canvas.height-sun.height	   	= 450
+  				15			canvas.height-sun.height *15/30	= 225
+  				30			0								= 0
+
+  				45			canvas.height-sun.height *15/30	= 225
+  				*/
+
+
+
+  				// 0 tot 30:
+  				// 0 -> canvas.height-sun.height
+  				// 15 -> (canvas.height-sun.height)*30/15
+  				// 30 -> 0
+
+  				// Alles groter dan 30:
+  				// 45 -> (canvas.height-sun.height)*30/15
+  				// 60 -> canvas.height-sun.height
+  			}
+
+
+
+  			 setInterval(
+  				function animate() {
+  					var d = new Date();
+  					ctx.clearRect(0,0,window.innerWidth,window.innerHeight);
+  					ctx.fillText(d.getHours() + ":" + d.getMinutes() + ":" + d.getSeconds() + ", y = " + point.y, 10, 250);
+  					currentPosition();
+  					ctx.drawImage(sun, point.x, point.y);
+  				}
+  				, 100
+  			);
+
+
+  		}
+	   </script>
+
   </body>
 </html>
