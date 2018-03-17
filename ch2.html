@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>GRID</title>
+    <link rel="stylesheet" href="styles/ch2.css">
+    <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
+    <style>
+      html, body {
+        overflow: hidden;
+        margin: 0px;
+      }
+      #mycanvas{
+        display: block;
+  		  background-color: #AAAAEE;
+        width: 100%;
+        height: 100%;
+      }
+    </style>
+    <script>
+      window.onload = function(){
+        function checkTime(i) {
+          if (i < 10) {i = "0" + i};
+          return i;
+        }
+
+        var sun = new Image();
+        sun.src = 'sun300.png';
+
+        var y = 0;
+
+        var canvas = document.getElementById("mycanvas");
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+
+        var ctx=canvas.getContext("2d");
+        ctx.font = "100pt Montserrat";
+
+
+        setInterval(function(){
+          ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+          //var today = new Date(); //24-uurs manier
+          var today = new Date(new Date()*3600); //snelle manier
+
+          var h = today.getHours();
+          var m = today.getMinutes();
+          var s = today.getSeconds();
+
+          // Totale duur (in seconden) totdat de zon op het hoogste punt staat is 12 uur
+          var duur = 12 * 60 * 60;
+
+          // De huidige tijd omgerekend naar seconden
+          var tijd = (h * 60 * 60) + (m * 60) + s;
+
+          if (tijd <= duur) {
+            // Berekening van de hoogte als de zon stijgt
+            y = canvas.height-sun.height - (tijd/duur * canvas.height-sun.height);
+          } else {
+            // Berekening van de hoogte als de zon daalt
+            y = sun.height + ((tijd-duur)/duur * canvas.height-sun.height);
+          }
+
+          ctx.drawImage(sun,canvas.width/2-sun.width/2,y);
+
+          //gras
+          ctx.fillStyle="#90C070";
+          ctx.fillRect(0,canvas.height/2,canvas.width,canvas.height);
+
+          //duisternis
+          var opacity = y/canvas.height - 0.1;
+          ctx.fillStyle = 'rgba(3, 15, 51, ' + opacity + ')';
+          ctx.fillRect(0, 0, canvas.width,canvas.height);
+
+          h = checkTime(h);
+          m = checkTime(m);
+          s = checkTime(s);
+
+          ctx.fillStyle = "white";
+          ctx.fillText(h + ":" + m + ":" + s,0,100);
+        }, 10);
+
+      }
+
+
+    </script>
+  </head>
+  <body>
+    <canvas id="mycanvas"></canvas>
+  </body>
+</html>
