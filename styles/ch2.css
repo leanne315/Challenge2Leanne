@@ -3,7 +3,177 @@ html, body {
   margin: 0px;
 }
 #mycanvas{
-  display: block;
-  background-color: #AAAAEE;
+  background-color: #87CEFA;
   width: 100%;
   height: 100%;
+}
+.blinking {
+	position: relative;
+	width: 400px;
+  font-family: 'Russo One', sans-serif;
+  font-size: 50px;
+
+  display: flex;
+  justify-content: flex-end;
+}
+.name {
+  font-family: Arial;
+  margin: 20px 20px 20px 10px;
+
+  display: flex;
+  justify-content: flex-end;
+}
+
+/*grid instellen*/
+.grid {
+  display: grid;
+  width: 100%;
+  height: 100%;
+
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 50px 1fr 30px;
+  grid-gap: 10px;
+
+  grid-template-areas: "text name"
+                       "sun  sun";
+}
+
+/* styling van grid section */
+.grid div {
+  color: black;
+}
+
+/* styling per item*/
+.item-1 {
+  background-color: white;
+  grid-area: text;
+}
+.item-2 {
+  background-color: white;
+  grid-area: name;
+}
+.item-3 {
+  background-color: #87CEFA;
+  grid-area: sun;
+}
+
+/*desktop*/
+@media only screen
+  and (max-width: 1024px){
+    .grid {
+      display: grid;
+      width: 100%;
+      height: 100%;
+
+      grid-template-columns: 1fr 1fr;
+      grid-template-rows: 50px 1fr 30px;
+      grid-gap: 10px;
+
+      grid-template-areas: "text  name"
+                           "sun   sun";
+    }
+
+    /* styling van grid section */
+    .grid div {
+      color: black;
+      }
+
+    /* styling per item*/
+    .item-1 {
+      background-color: white;
+      grid-area: text;
+    }
+    .item-2 {
+      background-color: white;
+      grid-area: name;
+    }
+    .item-3 {
+      background-color: #87CEFA;
+      grid-area: sun;
+    }
+}
+
+/*tablet*/
+@media only screen
+  and (min-width: 720px)
+  and (max-width: 1023px){
+    .grid {
+      display: grid;
+      width: 100%;
+      height: 100%;
+
+      grid-template-columns: 1fr 1fr;
+      grid-template-rows: 50px 1fr 30px;
+      grid-gap: 10px;
+
+      grid-template-areas: "text  name"
+                           "sun   sun";
+    }
+
+    /* styling van grid section */
+    .grid div {
+      color: black;
+      }
+
+    /* styling per item*/
+    .item-1 {
+      background-color: white;
+      grid-area: text;
+    }
+    .item-2 {
+      background-color: white;
+      grid-area: name;
+    }
+    .item-3 {
+      background-color: #87CEFA;
+      grid-area: sun;
+    }
+}
+
+/*mobile*/
+@media only screen
+  and (max-width: 719px){
+    .grid {
+      display: grid;
+      width: 100%;
+      height: 100%;
+
+      grid-template-columns: 1fr 1fr;
+      grid-template-rows: 50px 1fr 30px;
+      grid-gap: 10px;
+
+      grid-template-areas: "text"
+                           "name"
+                           "sun"
+                           "sun";
+    }
+
+    /* styling van grid section */
+    .grid div {
+      color: black;
+      }
+
+    /* styling per item*/
+    .item-1 {
+      background-color: white;
+      grid-area: text;
+    }
+    .item-2 {
+      background-color: white;
+      grid-area: name;
+    }
+    .item-3 {
+      background-color: #87CEFA;
+      grid-area: sun;
+    }
+    .blinking {
+      display: flex;
+      justify-content: flex-start;
+      margin-left: 10px;
+    }
+    .name {
+      display: flex;
+      justify-content: flex-start;
+      margin: 20px 20px 20px 10px;
+    }
+}
